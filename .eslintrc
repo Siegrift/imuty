@@ -1,0 +1,14 @@
+
+{
+    "extends": "vacuumlabs",
+    "rules": {
+      "object-curly-spacing": "off",
+      "prefer-rest-params": "off"
+    },
+    "env": {
+      "jest": true
+    },
+    "globals": {
+      "module": true
+    }
+  }
