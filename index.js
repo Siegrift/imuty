@@ -58,8 +58,19 @@ function getIn(object, path, defaultValue) {
   return baseGet(object, path, defaultValue, 0)
 }
 
+function multiSetIn() {
+  const [object, ...transforms] = arguments
+  let changed = object
+  for (const transform of transforms) {
+    if (!isValidPath(transform[0])) return object
+    changed = baseSet(changed, transform[0], transform[1], 0)
+  }
+  return changed
+}
+
 module.exports = {
   setIn,
+  multiSetIn,
   getIn,
   isValidPath,
 }
