@@ -84,6 +84,10 @@ describe('imuty', () => {
       const source = { a: [{ b: 10 }] }
       expect(getIn(source, ['a', 0])).toEqual({ b: 10 })
     })
+
+    test('works when path length is 0', () => {
+      expect(getIn(object, [])).toBe(object)
+    })
   })
 
   describe('setIn', () => {
@@ -124,6 +128,10 @@ describe('imuty', () => {
         a: true,
         5: { b: true, c: 'test', d: 5 },
       })
+    })
+
+    test('works when path length is 0', () => {
+      expect(setIn(object, [], { x: 22 })).toEqual({ x: 22 })
     })
   })
 
@@ -178,6 +186,11 @@ describe('imuty', () => {
       // not be caught and the assertion will fail.
       expect(() => mergeIn(object, 'invalid', {})).toThrow('Invalid path!')
       expect(() => mergeIn(object, [])).toThrow('Merge value is not an object!')
+    })
+
+    test("doesn't mutate the source", () => {
+      mergeIn(object, [], { 5: 55 })
+      expect(object).toEqual({ a: true, 5: { b: true } })
     })
   })
 })

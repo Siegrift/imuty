@@ -23,6 +23,7 @@ function baseGet(object, path, defaultValue, index) {
 }
 
 function baseSet(object, path, value, index) {
+  if (path.length === 0) return value
   const returnObject = shallowCopy(object)
   let currentObject = returnObject
   while (index < path.length) {
@@ -90,7 +91,7 @@ function filterObject(object, ...paths) {
 function mergeIn(object, path, value) {
   if (!isValidPath(path)) throw new Error('Invalid path!')
   if (typeof value !== 'object') throw new Error('Merge value is not an object!')
-  const obj = baseGet(object, path, undefined, 0) || {}
+  const obj = { ...baseGet(object, path, undefined, 0) }
   Object.keys(value).forEach((key) => {
     obj[key] = value[key]
   })
