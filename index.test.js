@@ -1,4 +1,12 @@
-const { getIn, setIn, isValidPath, multiSetIn, filterObject, pathExists } = require('./index.js')
+const {
+  getIn,
+  setIn,
+  isValidPath,
+  multiSetIn,
+  filterObject,
+  pathExists,
+  mergeIn,
+} = require('./index.js')
 
 describe('imuty', () => {
   let object
@@ -154,6 +162,22 @@ describe('imuty', () => {
     test('ignores non existing or invalid paths', () => {
       expect(filterObject(object, ['a'], ['nonExistent'])).toEqual({ a: true })
       expect(filterObject(object, 'invalid path')).toEqual({})
+    })
+  })
+
+  describe('mergeIn', () => {
+    test('flattens and merges the object with source', () => {
+      expect(mergeIn(object, [], { 5: 55 })).toEqual({
+        a: true,
+        5: 55,
+      })
+    })
+
+    test('throws error on invalid path or when value is not object', () => {
+      // You must wrap the code in a function, otherwise the error will
+      // not be caught and the assertion will fail.
+      expect(() => mergeIn(object, 'invalid', {})).toThrow('Invalid path!')
+      expect(() => mergeIn(object, [])).toThrow('Merge value is not an object!')
     })
   })
 })

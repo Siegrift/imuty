@@ -1,4 +1,5 @@
 // TODO: throw error instead of silent fail
+// TODO: documentation
 function shallowCopy(value) {
   if (Array.isArray(value)) return value.slice()
   if (typeof value === 'object') return Object.assign({}, value)
@@ -86,6 +87,16 @@ function filterObject(object, ...paths) {
   }, {})
 }
 
+function mergeIn(object, path, value) {
+  if (!isValidPath(path)) throw new Error('Invalid path!')
+  if (typeof value !== 'object') throw new Error('Merge value is not an object!')
+  const obj = baseGet(object, path, undefined, 0) || {}
+  Object.keys(value).forEach((key) => {
+    obj[key] = value[key]
+  })
+  return baseSet(object, path, obj, 0)
+}
+
 module.exports = {
   setIn,
   multiSetIn,
@@ -93,4 +104,5 @@ module.exports = {
   isValidPath,
   filterObject,
   pathExists,
+  mergeIn,
 }
