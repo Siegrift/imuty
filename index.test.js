@@ -1,4 +1,4 @@
-const { getIn, setIn, isValidPath, multiSetIn } = require('./index.js')
+const { getIn, setIn, isValidPath, multiSetIn, filterObject, pathExists } = require('./index.js')
 
 describe('imuty', () => {
   let object
@@ -126,6 +126,34 @@ describe('imuty', () => {
         b: 'bcd',
         5: { b: true },
       })
+    })
+  })
+
+  describe('pathExists', () => {
+    test('returns whether the path exists on the object', () => {
+      expect(pathExists(object, ['a'])).toBe(true)
+      expect(pathExists(object, ['nonExistent'])).toBe(false)
+    })
+
+    test('handles case when the path exists, but value is undefined', () => {
+      const obj = { a: undefined }
+      expect(pathExists(obj, ['a'])).toBe(true)
+    })
+
+    test('returns false when path is not valid', () => {
+      expect(pathExists(object, 'invalid')).toBe(false)
+    })
+  })
+
+  describe('filterObject', () => {
+    test('returns a new object with filtered properties', () => {
+      expect(filterObject(object, ['a'])).toEqual({ a: true })
+      expect(filterObject(object, ['a'], ['5', 'b'])).not.toBe(object)
+    })
+
+    test('ignores non existing or invalid paths', () => {
+      expect(filterObject(object, ['a'], ['nonExistent'])).toEqual({ a: true })
+      expect(filterObject(object, 'invalid path')).toEqual({})
     })
   })
 })
