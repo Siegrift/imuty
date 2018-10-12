@@ -40,13 +40,14 @@ describe('imuty', () => {
         expect(getIn(object, ['b'], 'default')).toBe('default')
       })
 
-      test('when path is invalid', () => {
-        expect(getIn(object, [''], 'default')).toBe('default')
-        expect(getIn(object, null, 'default')).toBe('default')
-      })
-
       test('or undefined if no defaultValue is passed', () => {
         expect(getIn(object, ['a', 'b'])).toBe(undefined)
+      })
+
+      describe('throws error', () => {
+        test('when path is invalid', () => {
+          expect(() => getIn(object, null, 'default')).toThrow()
+        })
       })
     })
 
@@ -66,7 +67,7 @@ describe('imuty', () => {
         deep.b = false
         expect(object[5].b).toEqual(false)
       })
-      test('preserves original on shallow lavel', () => {
+      test('preserves original on shallow level', () => {
         // eslint-disable-next-line
         let deep = getIn(object, [5])
         deep = true
@@ -91,8 +92,8 @@ describe('imuty', () => {
   })
 
   describe('setIn', () => {
-    test('returns "object" on invalid path', () => {
-      expect(setIn(object, [[]])).toBe(object)
+    test('throws error on invalid path', () => {
+      expect(() => setIn(object, [[]])).toThrow()
     })
 
     test('sets value in object on correct path', () => {
@@ -112,8 +113,8 @@ describe('imuty', () => {
     })
 
     test("returns source if it's not an object", () => {
-      expect(setIn('test', ['a'], 'val')).toBe('test')
-      expect(setIn(15, ['a'], 'val')).toBe(15)
+      expect(() => setIn('test', ['a'], 'val')).toThrow()
+      expect(() => setIn(15, ['a'], 'val')).toThrow()
     })
 
     test('converts numbers on path to strings', () => {
@@ -156,8 +157,8 @@ describe('imuty', () => {
       expect(pathExists(obj, ['a'])).toBe(true)
     })
 
-    test('returns false when path is not valid', () => {
-      expect(pathExists(object, 'invalid')).toBe(false)
+    test('throws an error when the path is invalid', () => {
+      expect(() => pathExists(object, 'invalid')).toThrow()
     })
   })
 
@@ -167,9 +168,12 @@ describe('imuty', () => {
       expect(filterObject(object, ['a'], ['5', 'b'])).not.toBe(object)
     })
 
-    test('ignores non existing or invalid paths', () => {
+    test('ignores non existing', () => {
       expect(filterObject(object, ['a'], ['nonExistent'])).toEqual({ a: true })
-      expect(filterObject(object, 'invalid path')).toEqual({})
+    })
+
+    test('throws error on invalid path', () => {
+      expect(() => filterObject(object, 'invalid path')).toThrow()
     })
   })
 
@@ -184,8 +188,8 @@ describe('imuty', () => {
     test('throws error on invalid path or when value is not object', () => {
       // You must wrap the code in a function, otherwise the error will
       // not be caught and the assertion will fail.
-      expect(() => mergeIn(object, 'invalid', {})).toThrow('Invalid path!')
-      expect(() => mergeIn(object, [])).toThrow('Merge value is not an object!')
+      expect(() => mergeIn(object, 'invalid', {})).toThrow()
+      expect(() => mergeIn(object, [])).toThrow()
     })
 
     test("doesn't mutate the source", () => {
