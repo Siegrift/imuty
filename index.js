@@ -205,7 +205,7 @@ function filterObject(object, ...paths) {
 function mergeIn(object, path, value) {
   if (!isValidPath(path)) throw new Error(getInvalidPathMessage(path))
   if (typeof value !== 'object') throw new Error(getInvalidTypeMessage(value, 'object'))
-  const obj = { ...baseGet(object, path, undefined) }
+  const obj = shallowCopy(baseGet(object, path, undefined))
   Object.keys(value).forEach((key) => {
     obj[key] = value[key]
   })
