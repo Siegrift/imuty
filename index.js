@@ -2,7 +2,7 @@
  * Returns an error message which will be printed on invalid path.
  *
  * @param {*} path
- * @returns invalid path error message
+ * @returns {string} invalid path error message
  */
 function getInvalidPathMessage(path) {
   return `Invalid path: '${path}'`
@@ -12,7 +12,7 @@ function getInvalidPathMessage(path) {
  * Returns an error message which will be printed on invalid transformation.
  *
  * @param {*} transformation
- * @returns invalid transformation error message
+ * @returns {string} invalid transformation error message
  */
 function getInvalidTransformationMessage(transformation) {
   return `Invalid transformation: '${transformation}'`
@@ -23,7 +23,7 @@ function getInvalidTransformationMessage(transformation) {
  *
  * @param {*} value
  * @param {*} expectedType
- * @returns invalid type error message
+ * @returns {string} invalid type error message
  */
 function getInvalidTypeMessage(value, expectedType) {
   return `Expected type of '${value}' to be '${expectedType}', but it is ${typeof value}`
@@ -33,7 +33,7 @@ function getInvalidTypeMessage(value, expectedType) {
  * Returns a shallow copy of the value passed.
  *
  * @param {*} value
- * @returns shallow copy of the value
+ * @returns {*} - shallow copy of the value
  */
 function shallowCopy(value) {
   if (Array.isArray(value)) return value.slice()
@@ -44,10 +44,10 @@ function shallowCopy(value) {
 /**
  * Returns a value in the object on a specified path without checking argument correctness.
  *
- * @param {*} object
- * @param {*} path
+ * @param {Object} object
+ * @param {Array<number|string>} path
  * @param {*} defaultValue
- * @returns the value on the path or defaultValue
+ * @returns {*} value on the path or defaultValue
  */
 function baseGet(object, path, defaultValue) {
   let returnObject = object
@@ -69,10 +69,10 @@ function baseGet(object, path, defaultValue) {
 /**
  * Sets the value on a given path in the object without checking argument correctness.
  *
- * @param {*} object
- * @param {*} path
+ * @param {Object} object
+ * @param {Array<number|string>} path
  * @param {*} value
- * @returns a new object with the value set
+ * @returns {Object} with the value set
  */
 function baseSet(object, path, value) {
   if (path.length === 0) return value
@@ -98,7 +98,7 @@ function baseSet(object, path, value) {
  * Returns true if the argument is a valid path. (Path must be an array of string or numbers).
  *
  * @param {*} path
- * @returns true if the path is valid, false otherwise
+ * @returns {boolean}
  */
 function isValidPath(path) {
   return (
@@ -117,7 +117,7 @@ function isValidPath(path) {
  * @param {Object} object object in which the value should be set
  * @param {Array<number|string>} path path in the object where to set the value
  * @param {*} value value to be set
- * @returns a new object with the value set
+ * @returns {Object} with the value set
  */
 function setIn(object, path, value) {
   if (typeof object !== 'object') {
@@ -134,7 +134,7 @@ function setIn(object, path, value) {
  * @param {Object} object object from which to get the value
  * @param {Array<number|string>} path path to the value in the object
  * @param {*} defaultValue value to be returned if the path is not part of the object
- * @returns the value on the path or defaultValue
+ * @returns {*} value on the path or defaultValue
  */
 function getIn(object, path, defaultValue) {
   if (!isValidPath(path)) throw new Error(getInvalidPathMessage(path))
@@ -148,9 +148,9 @@ function getIn(object, path, defaultValue) {
  *
  * Transformations are applied from left to right.
  *
- * @param {*} object object in which the transformation should be applied
- * @param {Iterable<[Array<number|string>, *]>} transforms transformations to be applied
- * @returns a new object with all transformations applied
+ * @param {Object} object object in which the transformation should be applied
+ * @param {...[Array<number|string>, *]} transforms transformations to be applied
+ * @returns {Object} with all transformations applied
  */
 function multiSetIn(object, ...transforms) {
   let changed = object
@@ -166,8 +166,8 @@ function multiSetIn(object, ...transforms) {
  * Returns true if the path exists in given object.
  *
  * @param {Object} object
- * @param {*} path
- * @returns true if the path exists in an object
+ * @param {Array<number|string>} path
+ * @returns {boolean}
  */
 function pathExists(object, path) {
   if (!isValidPath(path)) throw new Error(getInvalidPathMessage(path))
@@ -184,8 +184,8 @@ function pathExists(object, path) {
  * Filters an object by the paths provided.
  *
  * @param {Object} object
- * @param {Array<Path>} paths
- * @returns a new object with filtered properties from the object
+ * @param {Array<Array<number|string>>} paths
+ * @returns {Object} with filtered properties from the object
  */
 function filterObject(object, ...paths) {
   return paths.reduce((acc, path) => {
@@ -197,10 +197,10 @@ function filterObject(object, ...paths) {
 /**
  * Merges the path of the object found on a given path with the properties of value object.
  *
- * @param {*} object
- * @param {*} path
+ * @param {Object} object
+ * @param {Array<number|string>} path
  * @param {*} value
- * @returns a new object that is merged with the value on a given path
+ * @returns {Object} that is merged with the value on a given path
  */
 function mergeIn(object, path, value) {
   if (!isValidPath(path)) throw new Error(getInvalidPathMessage(path))

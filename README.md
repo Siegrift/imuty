@@ -31,7 +31,7 @@ Returns true if the argument is a valid path. (Path must be an array of string o
 
 - `path` **any**
 
-Returns **any** true if the path is valid, false otherwise
+Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
 
 ## setIn
 
@@ -44,7 +44,7 @@ thrown.
 - `path` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;([number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) \| [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String))>** path in the object where to set the value
 - `value` **any** value to be set
 
-Returns **any** a new object with the value set
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** with the value set
 
 ## getIn
 
@@ -57,7 +57,7 @@ defaultValue instead. If the path is not a valid path object, an error is thrown
 - `path` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;([number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) \| [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String))>** path to the value in the object
 - `defaultValue` **any** value to be returned if the path is not part of the object
 
-Returns **any** the value on the path or defaultValue
+Returns **any** value on the path or defaultValue
 
 ## multiSetIn
 
@@ -69,10 +69,10 @@ Transformations are applied from left to right.
 
 ### Parameters
 
-- `object` **any** object in which the transformation should be applied
-- `transforms` **Iterable&lt;\[[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;([number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) \| [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String))>, any]>** transformations to be applied
+- `object` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** object in which the transformation should be applied
+- `transforms` **...\[[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;([number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) \| [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String))>, any]** transformations to be applied
 
-Returns **any** a new object with all transformations applied
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** with all transformations applied
 
 ## pathExists
 
@@ -81,9 +81,9 @@ Returns true if the path exists in given object.
 ### Parameters
 
 - `object` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
-- `path` **any**
+- `path` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;([number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) \| [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String))>**
 
-Returns **any** true if the path exists in an object
+Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
 
 ## filterObject
 
@@ -92,9 +92,9 @@ Filters an object by the paths provided.
 ### Parameters
 
 - `object` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
-- `paths` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;Path>**
+- `paths` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;([number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) \| [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String))>>**
 
-Returns **any** a new object with filtered properties from the object
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** with filtered properties from the object
 
 ## mergeIn
 
@@ -102,8 +102,8 @@ Merges the path of the object found on a given path with the properties of value
 
 ### Parameters
 
-- `object` **any**
-- `path` **any**
+- `object` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+- `path` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;([number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) \| [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String))>**
 - `value` **any**
 
-Returns **any** a new object that is merged with the value on a given path
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** that is merged with the value on a given path
